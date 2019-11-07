@@ -18,13 +18,14 @@ public class Program {
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
 		
-		Teacher teacher = new Teacher("Alex");
+		Teacher teacherAlex = new Teacher("Alex");
+		Teacher teacherBob = new Teacher("Bob");
 		
 		List<Course> courses = new ArrayList<>();
 		
-		courses.add(new Course("A", teacher));
-		courses.add(new Course("B", teacher));
-		courses.add(new Course("C", teacher));
+		courses.add(new Course("A", teacherAlex));
+		courses.add(new Course("B", teacherBob));
+		courses.add(new Course("C", teacherAlex));
 		
 		for (Course c : courses) {
 			System.out.print("How many students for course " + c.getName() + "? ");
@@ -41,10 +42,12 @@ public class Program {
 		}
 		
 		Set<Student> students = new HashSet<>();
+		
+		// Filtrando apenas os cursos do professor Alex
+		courses.removeIf(x -> x.getTeacher().getName() != "Alex");
+		
 		for (Course c : courses) {
-			if (c.getTeacher().getName() == "Alex") {
-				students.addAll(c.getStudents());
-			}
+			students.addAll(c.getStudents());
 		}
 		
 		System.out.println("Total students: " + students.size());
